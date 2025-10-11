@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaceDex</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+
+    </style>
+</head>
+<body>
+    <canvas id="stars-canvas"></canvas>
+    
+    <div class="content">
+        <nav>
+            <div class="logo"><i class="fas fa-rocket"></i> SpaceDex</div>
+            <ul class="nav-links">
+                <li><a href="learn.html">Learn</a></li>
+                <li><a href="paths.html">Paths</a></li>
+                <li><a href="community.html">Community</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <div style="display:flex; gap: 0.75rem; align-items:center;">
+                <button class="btn btn-primary">Get Started</button>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <h1>Master Space Science & Technology</h1>
+            <p>Embark on an interstellar journey through astronomy, astrophysics, rocket science, and space exploration. Learn by doing with interactive lessons and real-world projects.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary">Start Learning Free</button>
+                <button class="btn btn-secondary">Explore Paths</button>
+            </div>
+        </section>
+        <section class="features">
+            <h2 class="section-title">Why SpaceQuest?</h2>
+            <p class="section-subtitle">The most engaging way to learn about space</p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-bullseye"></i></div>
+                    <h3>Interactive Learning</h3>
+                    <p>Hands-on exercises and simulations that bring space concepts to life</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-project-diagram"></i></div>
+                    <h3>Project-Based</h3>
+                    <p>Build real projects from satellite trackers to Mars rover simulations</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Track Progress</h3>
+                    <p>Visualize your learning journey with achievements and milestones</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-users"></i></div>
+                    <h3>Community</h3>
+                    <p>Learn alongside thousands of space enthusiasts worldwide</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>Expert Created</h3>
+                    <p>Content developed by aerospace engineers and astrophysicists</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-clock"></i></div>
+                    <h3>Self-Paced</h3>
+                    <p>Learn at your own speed, anytime, anywhere in the universe</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="learning-paths">
+            <h2 class="section-title">Learning Paths</h2>
+            <p class="section-subtitle">Choose your mission</p>
+            
+            <div class="path-cards">
+                <div class="path-card">
+                    <div class="path-header">
+                        <div class="path-icon"><i class="fas fa-galaxy"></i></div>
+                    </div>
+                    <h3>Astronomy Fundamentals</h3>
+                    <div class="path-meta">
+                        <span>⏱️ 12 weeks</span>
+                        <span>📚 45 lessons</span>
+                    </div>
+                    <p>Explore stars, galaxies, and the cosmos</p>
+                </div>
+                
+                <div class="path-card">
+                    <div class="path-header">
+                        <div class="path-icon"><i class="fas fa-rocket"></i></div>
+                    </div>
+                    <h3>Rocket Science</h3>
+                    <div class="path-meta">
+                        <span>⏱️ 16 weeks</span>
+                        <span>📚 60 lessons</span>
+                    </div>
+                    <p>Master propulsion and orbital mechanics</p>
+                </div>
+                
+                <div class="path-card">
+                    <div class="path-header">
+                        <div class="path-icon"><i class="fas fa-satellite"></i></div>
+                    </div>
+                    <h3>Satellite Technology</h3>
+                    <div class="path-meta">
+                        <span>⏱️ 10 weeks</span>
+                        <span>📚 38 lessons</span>
+                    </div>
+                    <p>Design and deploy space-based systems</p>
+                </div>
+                
+                <div class="path-card">
+                    <div class="path-header">
+                        <div class="path-icon"><i class="fas fa-atom"></i></div>
+                    </div>
+                    <h3>Astrophysics</h3>
+                    <div class="path-meta">
+                        <span>⏱️ 20 weeks</span>
+                        <span>📚 75 lessons</span>
+                    </div>
+                    <p>Understand the physics of the universe</p>
+                </div>
+                
+                <div class="path-card">
+                    <div class="path-header">
+                        <div class="path-icon"><i class="fas fa-globe"></i></div>
+                    </div>
+                    <h3>Planetary Science</h3>
+                    <div class="path-meta">
+                        <span>⏱️ 14 weeks</span>
+                        <span>📚 52 lessons</span>
+                    </div>
+                    <p>Study planets, moons, and solar systems</p>
+                </div>
+                
+                <div class="path-card">
+                    <div class="path-header">
+                        <div class="path-icon"><i class="fas fa-user-astronaut"></i></div>
+                    </div>
+                    <h3>Space Exploration</h3>
+                    <div class="path-meta">
+                        <span>⏱️ 18 weeks</span>
+                        <span>📚 65 lessons</span>
+                    </div>
+                    <p>Human spaceflight and mission planning</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats">
+            <h2 class="section-title">Join Our Space Community</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h4>50K+</h4>
+                    <p>Active Learners</p>
+                </div>
+                <div class="stat-item">
+                    <h4>200+</h4>
+                    <p>Interactive Lessons</p>
+                </div>
+                <div class="stat-item">
+                    <h4>30+</h4>
+                    <p>Learning Paths</p>
+                </div>
+                <div class="stat-item">
+                    <h4>95%</h4>
+                    <p>Completion Rate</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>SpaceQuest</h4>
+                    <p style="color: #8a8a8a;">Making space science accessible to everyone</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="main.js" defer></script>
+</body>
+</html>
