@@ -7,17 +7,23 @@ const renderer = new THREE.WebGLRenderer({
 
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+renderer.domElement.style.position = 'fixed';
+renderer.domElement.style.top = '0';
+renderer.domElement.style.left = '0';
+renderer.domElement.style.width = '100vw';
+renderer.domElement.style.height = '100vh';
+renderer.domElement.style.zIndex = '-1';
 camera.position.z = 5;
 
 const starsGeometry = new THREE.BufferGeometry();
-const starCount = 3000;
+const starCount = 5000;
 const positions = new Float32Array(starCount * 3);
 const colors = new Float32Array(starCount * 3);
 
 for (let i = 0; i < starCount * 3; i += 3) {
-    positions[i] = (Math.random() - 0.5) * 100;
-    positions[i + 1] = (Math.random() - 0.5) * 100;
-    positions[i + 2] = (Math.random() - 0.5) * 100;
+    positions[i] = (Math.random() - 0.5) * 200;
+    positions[i + 1] = (Math.random() - 0.5) * 200;
+    positions[i + 2] = (Math.random() - 0.5) * 200;
 
     const color = Math.random();
     if (color > 0.7) {
@@ -330,6 +336,71 @@ if (isIndexPage) {
 
 scene.add(nebula);
 
+// Create meteors
+const meteors = [];
+const meteorCount = 3;
+
+for (let i = 0; i < meteorCount; i++) {
+    const meteorGeometry = new THREE.BufferGeometry();
+    const meteorPositions = new Float32Array([
+        0, 0, 0,
+        -0.1, -0.1, 0,
+        0.1, -0.1, 0,
+        0, -0.2, 0
+    ]);
+    meteorGeometry.setAttribute('position', new THREE.BufferAttribute(meteorPositions, 3));
+    
+    const meteorMaterial = new THREE.PointsMaterial({
+        size: 0.3,
+        color: 0xff6b35,
+        transparent: true,
+        opacity: 0.8
+    });
+    
+    const meteor = new THREE.Points(meteorGeometry, meteorMaterial);
+    meteor.position.set(
+        (Math.random() - 0.5) * 100,
+        (Math.random() - 0.5) * 100,
+        -50 + Math.random() * 20
+    );
+    meteor.userData = {
+        speed: 0.5 + Math.random() * 0.5,
+        direction: new THREE.Vector3(
+            (Math.random() - 0.5) * 0.1,
+            (Math.random() - 0.5) * 0.1,
+            1
+        ).normalize()
+    };
+    
+    scene.add(meteor);
+    meteors.push(meteor);
+}
+
+// Create flying rockets
+const flyingRockets = [];
+const rocketCount = 2;
+
+for (let i = 0; i < rocketCount; i++) {
+    const rocket = createPixelRocket();
+    rocket.position.set(
+        (Math.random() - 0.5) * 80,
+        (Math.random() - 0.5) * 80,
+        -30 + Math.random() * 20
+    );
+    rocket.userData = {
+        speed: 0.3 + Math.random() * 0.4,
+        direction: new THREE.Vector3(
+            (Math.random() - 0.5) * 0.2,
+            (Math.random() - 0.5) * 0.2,
+            1
+        ).normalize(),
+        rotationSpeed: (Math.random() - 0.5) * 0.02
+    };
+    
+    scene.add(rocket);
+    flyingRockets.push(rocket);
+}
+
 let targetRotationX = 0;
 let targetRotationY = 0;
 
@@ -409,6 +480,46 @@ function animate() {
         thrustParticles.geometry.attributes.position.needsUpdate = true;
     }
     
+    // Animate meteors
+    meteors.forEach(meteor => {
+        meteor.position.add(meteor.userData.direction.clone().multiplyScalar(meteor.userData.speed));
+        meteor.rotation.z += 0.01;
+        
+        // Reset meteor if it goes off screen
+        if (meteor.position.z > 50 || Math.abs(meteor.position.x) > 60 || Math.abs(meteor.position.y) > 60) {
+            meteor.position.set(
+                (Math.random() - 0.5) * 100,
+                (Math.random() - 0.5) * 100,
+                -50 + Math.random() * 20
+            );
+            meteor.userData.direction = new THREE.Vector3(
+                (Math.random() - 0.5) * 0.1,
+                (Math.random() - 0.5) * 0.1,
+                1
+            ).normalize();
+        }
+    });
+    
+    // Animate flying rockets
+    flyingRockets.forEach(rocket => {
+        rocket.position.add(rocket.userData.direction.clone().multiplyScalar(rocket.userData.speed));
+        rocket.rotation.z += rocket.userData.rotationSpeed;
+        
+        // Reset rocket if it goes off screen
+        if (rocket.position.z > 50 || Math.abs(rocket.position.x) > 60 || Math.abs(rocket.position.y) > 60) {
+            rocket.position.set(
+                (Math.random() - 0.5) * 80,
+                (Math.random() - 0.5) * 80,
+                -30 + Math.random() * 20
+            );
+            rocket.userData.direction = new THREE.Vector3(
+                (Math.random() - 0.5) * 0.2,
+                (Math.random() - 0.5) * 0.2,
+                1
+            ).normalize();
+        }
+    });
+    
     renderer.render(scene, camera);
 }
 
@@ -418,6 +529,8 @@ window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.domElement.style.width = '100vw';
+    renderer.domElement.style.height = '100vh';
 });
 
 document.addEventListener('mousemove', (e) => {
@@ -506,8 +619,15 @@ document.addEventListener('mousemove', (e) => {
                 const wasCompleted = !!state.completed[id];
                 state.completed[id] = cb.checked;
                 if (!wasCompleted && cb.checked) {
-                    state.points = (state.points || 0) + (defaultQuests.find(q => q.id === id)?.reward || 0);
-                    showToast('Quest completed!');
+                    const quest = defaultQuests.find(q => q.id === id);
+                    const xpReward = quest?.reward || 0;
+                    
+                    // Award XP to the unified profile system
+                    if (window.CosmodexProfile && window.CosmodexProfile.addXP) {
+                        window.CosmodexProfile.addXP(xpReward);
+                    }
+                    
+                    showToast(`Quest completed! +${xpReward} XP`);
                 }
                 saveState(state);
                 renderPanel(state);

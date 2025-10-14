@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mercury Course - CosmoDex</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>document.documentElement.classList.add('js','cdx-preload');</script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="course-styles.css">
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+    <canvas id="stars-canvas"></canvas>
+
+    <div class="content">
+        <!-- Navigation -->
+        <nav class="global-nav">
+            <div class="logo"><i class="fas fa-rocket"></i> CosmoDex</div>
+            <ul class="nav-links">
+                <li><a href="learn.html">Learn</a></li>
+                <li><a href="paths.html">Paths</a></li>
+                <li><a href="community.html">Community</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <div id="nav-actions" style="margin-left:auto;display:flex;gap:12px;align-items:center;">
+                <a class="btn btn-secondary" href="paths.html"><i class="fas fa-arrow-left"></i> Back to Paths</a>
+            </div>
+        </nav>
+
+        <!-- Course Intro Section -->
+        <section class="course-intro hero">
+            <div class="course-header">
+                <div class="planet-icon">
+                    <img src="Badges/planet_mercury.png" alt="Mercury">
+                </div>
+                <div class="course-info">
+                    <h1>Mercury: What is a Planet?</h1>
+                    <p class="course-subtitle">Learn the fundamentals of planetary science</p>
+                </div>
+            </div>
+
+            <div class="course-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">⏱️</div>
+                    <div class="stat-content">
+                        <div class="stat-number">15</div>
+                        <div class="stat-label">Minutes</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div class="stat-content">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Lessons</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-content">
+                        <div class="stat-number">120</div>
+                        <div class="stat-label">XP</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-content">
+                        <div class="stat-number">Beginner</div>
+                        <div class="stat-label">Level</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="course-description">
+                <h2>What You'll Learn</h2>
+                <ul class="learning-objectives">
+                    <li><i class="fas fa-check"></i> Define what makes a celestial body a planet</li>
+                    <li><i class="fas fa-check"></i> Understand Mercury's unique characteristics</li>
+                    <li><i class="fas fa-check"></i> Learn about planetary formation</li>
+                    <li><i class="fas fa-check"></i> Explore Mercury's extreme environment</li>
+                </ul>
+            </div>
+
+            <div class="course-actions">
+                <button class="btn btn-primary btn-large start-course-btn">
+                    <i class="fas fa-play"></i>
+                    Start Learning
+                </button>
+                <button class="btn btn-secondary preview-btn">
+                    <i class="fas fa-eye"></i>
+                    Preview Lesson
+                </button>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>CosmoDex</h4>
+                    <p style="color: #8a8a8a;">Making space science accessible to everyone</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="main.js" defer></script>
+    <script src="profile.js" defer></script>
+    <script src="js/pagefx.js" defer></script>
+    <script src="js/sound-effects.js" defer></script>
+    <script src="js/course-system.js" defer></script>
+</body>
+</html>

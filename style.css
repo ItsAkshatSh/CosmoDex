@@ -4,11 +4,17 @@
         box-sizing: border-box;
 }
 
+html {
+        scroll-behavior: smooth;
+}
+
 body {
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        background: #0d0d0d;
+        background: radial-gradient(ellipse at center, #0a0a0a 0%, #000000 100%);
         color: #e8e8e8;
         overflow-x: hidden;
+        min-height: 100vh;
+        line-height: 1.6;
 }
 
 #stars-canvas {
@@ -64,16 +70,7 @@ nav {
         color: #e8e8e8;
 }
 
-.btn {
-        padding: 0.75rem 1.5rem;
-        border-radius: 25px;
-        text-decoration: none;
-        font-weight: 600;
-        transition: all 0.3s;
-        cursor: pointer;
-        border: none;
-        font-size: 1rem;
-}
+/* Button styles moved to global consistency section */
 
 .btn-primary {
         background: #e8e8e8;
@@ -96,12 +93,7 @@ nav {
         color: #0d0d0d;
 }
 
-.hero {
-        padding: 8rem 5% 6rem;
-        text-align: center;
-        max-width: 1200px;
-        margin: 0 auto;
-}
+/* Hero styles moved to global consistency section */
 
 .hero h1 {
         font-size: 4rem;
@@ -282,13 +274,61 @@ footer {
         padding: 4rem 5%;
         background: rgba(13, 13, 13, 0.9);
         border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-/* Stick footer to bottom when content is short */
-.content footer {
         margin-top: auto;
 }
 
+/* Footer styling is handled above */
+
+/* ===================== GLOBAL CONSISTENCY IMPROVEMENTS ===================== */
+
+/* Ensure consistent button styling across all pages */
+.btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s;
+        cursor: pointer;
+        border: none;
+        font-size: 1rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+}
+
+/* Consistent section spacing */
+section {
+        padding: 6rem 5%;
+}
+
+/* Consistent hero section styling */
+.hero {
+        padding: 8rem 5% 6rem;
+        text-align: center;
+        max-width: 1200px;
+        margin: 0 auto;
+}
+
+/* Ensure consistent text colors */
+h1, h2, h3, h4, h5, h6 {
+        color: #e8e8e8;
+}
+
+p {
+        color: #8a8a8a;
+}
+
+/* Consistent link styling */
+a {
+        color: #b8b8b8;
+        text-decoration: none;
+        transition: color 0.3s;
+}
+
+a:hover {
+        color: #e8e8e8;
+}
 
 .footer-content {
         max-width: 1400px;
@@ -601,4 +641,408 @@ footer {
     .cta-box h2 {
         font-size: 1.5rem;
     }
+}
+
+/* ===================== NAV SPACING ===================== */
+/* Prefer ".global-nav .nav-links"; also support plain header nav if class wasn't added */
+.global-nav .nav-links,
+header .nav-links,
+header nav{
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 3vw, 36px);          /* space between links */
+  margin-left: clamp(22px, 4.5vw, 56px);/* gap after brand/logo */
+}
+
+/* Keep buttons aligned on the right if you have a right-side container */
+.global-nav .nav-actions,
+#nav-actions { 
+  display: flex; 
+  align-items: center; 
+  gap: 12px; 
+  margin-left: auto; 
+}
+
+/* ===================== SUBTLE ANIMATIONS ===================== */
+/* Smooth hover effects for navigation links */
+.global-nav .nav-links a {
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.global-nav .nav-links a:hover {
+  transform: translateY(-2px);
+  text-shadow: 0 0 8px rgba(34, 211, 238, 0.5);
+}
+
+/* Button hover effects */
+.btn {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(34, 211, 238, 0.3);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Profile chip hover effect */
+.profile-chip {
+  transition: all 0.3s ease;
+}
+
+.profile-chip:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(34, 211, 238, 0.4);
+}
+
+/* ================== FLASH-FREE PAGE TRANSITIONS (SCRIM) ================== */
+.cdx-scrim{
+  position: fixed; inset: 0; pointer-events: none;
+  background: rgba(0,0,0,0);
+  backdrop-filter: blur(0px);
+  transition: background .22s cubic-bezier(.2,.9,.18,1),
+              backdrop-filter .22s cubic-bezier(.2,.9,.18,1);
+  will-change: background, backdrop-filter;
+  z-index: 9999;          /* above starfield & content */
+}
+.cdx-scrim.on{
+  background: rgba(0,0,0,.22);   /* gentle darken instead of black frame */
+  backdrop-filter: blur(2px);
+}
+
+@media (prefers-reduced-motion: no-preference){
+  /* Initial load: start subtly tucked, then spring to place */
+  html.js.cdx-preload body{ opacity: 0; transform: translateY(4px); }
+  html.js.cdx-ready body{
+    opacity: 1; transform: none;
+    transition: opacity .22s ease,
+                transform .26s cubic-bezier(.22,1,.36,1);
+    will-change: opacity, transform;
+  }
+
+  /* Optional micro-exit scale on a content wrapper if present */
+  .cdx-exit{ transform: scale(.995); transition: transform .18s ease; }
+}
+
+/* ================== SOLAR SYSTEM CAROUSEL (IMPROVED) ================== */
+.solar-system-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem 2rem;
+  min-height: 80vh;
+  position: relative;
+}
+
+.solar-system {
+  position: relative;
+  width: 1200px;
+  height: 1200px;
+  margin: 2rem auto;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+/* Central Sun */
+.sun {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.sun:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.sun-core {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #ffd700, #ff8c00, #ff4500);
+  border-radius: 50%;
+  box-shadow: 0 0 50px #ffd700, 0 0 100px #ff8c00, 0 0 150px #ff4500;
+  animation: sunPulse 6s ease-in-out infinite;
+}
+
+.sun-glow {
+  position: absolute;
+  top: -40px;
+  left: -40px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.4), rgba(255, 140, 0, 0.2), transparent);
+  border-radius: 50%;
+  animation: sunGlow 8s ease-in-out infinite;
+}
+
+@keyframes sunPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes sunGlow {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+/* Planets */
+.planet {
+  position: absolute;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 5;
+}
+
+.planet-core {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+}
+
+.planet-label {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+.planet:hover .planet-label {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-8px);
+  background: rgba(0, 0, 0, 0.95);
+  border: 2px solid rgba(34, 211, 238, 0.8);
+  box-shadow: 0 8px 25px rgba(34, 211, 238, 0.4);
+}
+
+.planet:hover .planet-core {
+  transform: scale(1.4);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.9), 0 0 60px rgba(34, 211, 238, 0.6);
+  filter: brightness(1.2);
+}
+
+.planet:hover {
+  z-index: 10;
+}
+
+/* Orbital Paths */
+.orbit-path {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+/* System Info Panel - Replicating Homepage Card Design */
+.system-info {
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 2rem;
+  margin-top: 2rem;
+  max-width: 600px;
+  text-align: center;
+  transition: all 0.3s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  animation: infoPanelSlideIn 0.6s ease-out;
+  backdrop-filter: blur(20px);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.system-info:hover {
+  transform: scale(1.05);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Removed over-the-top effects for consistency */
+
+@keyframes infoPanelSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Removed unused borderGlow animation */
+
+.system-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.system-description {
+  color: #8a8a8a;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  font-size: 0.9rem;
+}
+
+.system-stats {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.9rem;
+  color: #8a8a8a;
+  justify-content: center;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stat-number {
+  font-weight: 600;
+  color: #e8e8e8;
+}
+
+.stat-label {
+  color: #8a8a8a;
+}
+
+@keyframes titleGlow {
+  0% {
+    text-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+  }
+  100% {
+    text-shadow: 0 0 15px rgba(34, 211, 238, 0.8);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes numberPulse {
+  0%, 100% {
+    transform: scale(1);
+    text-shadow: 0 0 10px rgba(34, 211, 238, 0.6);
+  }
+  50% {
+    transform: scale(1.05);
+    text-shadow: 0 0 15px rgba(34, 211, 238, 0.8);
+  }
+}
+
+/* Locked System Styling */
+.system-info.locked {
+  background: rgba(0, 0, 0, 0.9);
+  border-color: rgba(102, 102, 102, 0.6);
+  filter: grayscale(0.3);
+}
+
+.system-info.locked .system-title {
+  color: #666666;
+  text-shadow: 0 0 10px rgba(102, 102, 102, 0.5);
+}
+
+.system-info.locked .system-description {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.system-info.locked .stat {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(102, 102, 102, 0.3);
+}
+
+.system-info.locked .stat-number {
+  color: #666666;
+  text-shadow: 0 0 8px rgba(102, 102, 102, 0.4);
+}
+
+.system-info.locked .stat-label {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .solar-system {
+    width: 800px;
+    height: 800px;
+  }
+  
+  .sun {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .sun-glow {
+    top: -35px;
+    left: -35px;
+    width: 170px;
+    height: 170px;
+  }
+  
+  .system-info {
+    padding: 2rem;
+    margin-top: 1.5rem;
+  }
+  
+  .system-title {
+    font-size: 1.5rem;
+  }
+  
+  .system-stats {
+    gap: 2rem;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+  
+  .nav-zone {
+    width: 100px;
+  }
 }
