@@ -1,0 +1,393 @@
+:root {
+    --panel-bg: rgba(11, 14, 18, .92);
+    --soft: rgba(255, 255, 255, .08);
+    --border: rgba(255, 255, 255, .12);
+    --text: #e9edf2;
+    --muted: #9aa3ad;
+    --glow1: #86efac;
+    --glow2: #22d3ee;
+}
+
+/* helmet chip button (beside Get Started) */
+.profile-chip {
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid var(--soft);
+    cursor: pointer;
+    transition: transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+
+.profile-chip img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: block
+}
+
+.profile-chip:hover {
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, .06);
+    border-color: rgba(255, 255, 255, .14);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, .35)
+}
+
+/* overlay + panel */
+#profile-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .45);
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .22s ease;
+    z-index: 90
+}
+
+#profile-overlay.open {
+    opacity: 1;
+    pointer-events: auto
+}
+
+#profile-panel {
+    position: fixed;
+    top: 72px;
+    /* below nav */
+    right: 24px;
+    bottom: 24px;
+    /* sit above viewport bottom */
+    width: min(460px, 96vw);
+    height: auto;
+    max-height: none;
+
+    background: var(--panel-bg);
+    border: 1px solid var(--soft);
+    border-radius: 16px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, .45);
+    padding: 18px;
+    color: var(--text);
+
+    display: flex;
+    /* let inner stack fill */
+    flex-direction: column;
+
+    transform: translateY(8px) scale(.985);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform .24s ease, opacity .24s ease;
+    z-index: 100;
+}
+
+#profile-panel.open {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    pointer-events: auto
+}
+
+/* header */
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px
+}
+
+.profile-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
+    flex: 0 0 48px;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, .15);
+    background: #0b1020;
+    cursor: pointer;
+}
+
+.profile-meta h3 {
+    margin: 0 0 6px
+}
+
+.xp-row {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-top: 6px
+}
+
+.xp-bar {
+    width: 170px;
+    height: 8px;
+    background: rgba(255, 255, 255, .08);
+    border-radius: 999px;
+    overflow: hidden
+}
+
+.xp-fill {
+    height: 100%;
+    display: block;
+    background: linear-gradient(90deg, var(--glow1), var(--glow2));
+    transition: width .25s ease
+}
+
+.xp-text {
+    font-size: .78rem;
+    color: #a9b0b8
+}
+
+/* views + transitions */
+.view {
+    flex: 1;
+    min-height: 0;
+    position: relative;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 18px;
+}
+
+.view-page {
+    position: absolute;
+    inset: 0;
+    padding-top: 4px;
+    transform: translateX(8%);
+    opacity: 0;
+    transition: transform .22s ease, opacity .22s ease;
+    pointer-events: none
+}
+
+.view[data-state="overview"] .view-page.overview,
+.view[data-state="badges"] .view-page.badges,
+.view[data-state="avatar"] .view-page.avatar {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto
+}
+
+/* section titles */
+.section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 0 10px
+}
+
+.view .section-title+* {
+    margin-top: 8px
+}
+
+.section-title .cta {
+    font-size: .9rem;
+    color: var(--muted);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px
+}
+
+.section-title .cta:hover {
+    color: #d7dde4
+}
+
+/* stats */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px
+}
+
+/* extra space between the Stats tiles and the next section title */
+.stats-grid {
+    margin-bottom: 22px;
+    /* tweak 18–26px to taste */
+}
+
+/* keep it compact on short screens */
+@media (max-height:700px) {
+    .stats-grid {
+        margin-bottom: 14px;
+    }
+}
+
+.stat {
+    min-height: 74px;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, .035);
+    border: 1px solid rgba(255, 255, 255, .1);
+    border-radius: 14px;
+    transition: transform .16s ease, border-color .16s ease, background .16s ease
+}
+
+.stat .k {
+    font-size: .78rem;
+    color: var(--muted);
+    margin-bottom: 8px
+}
+
+.stat .v {
+    font-size: 1.14rem;
+    line-height: 1.2;
+    font-weight: 700
+}
+
+.stat:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, .18);
+    background: rgba(255, 255, 255, .055)
+}
+
+/* progress */
+.progress {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 14px
+}
+
+.prog-row {
+    display: flex;
+    align-items: center;
+    gap: 10px
+}
+
+.prog-row span:first-child {
+    width: 120px;
+    color: #c7cdd4
+}
+
+.prog-row span:last-child {
+    width: 44px;
+    text-align: right;
+    margin-left: 8px;
+    color: #c7cdd4
+}
+
+/* badges */
+.badge-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 8px
+}
+
+.badge-item {
+    width: 60px;
+    height: 60px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .03);
+    border: 1px solid rgba(255, 255, 255, .12);
+    display: grid;
+    place-items: center;
+    overflow: hidden
+}
+
+.badge-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover
+}
+
+/* all badges view */
+.badge-grid-all {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    padding-top: 8px;
+    height: 100%;
+    overflow: auto;
+    padding-right: 4px
+}
+
+/* avatar chooser */
+.pfp-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    height: 100%;
+    overflow: auto;
+    padding-right: 4px
+}
+
+.pfp-item {
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, .12);
+    background: rgba(255, 255, 255, .03);
+    padding: 6px;
+    cursor: pointer;
+    transition: transform .12s ease, border-color .12s ease
+}
+
+.pfp-item:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, .2)
+}
+
+.pfp-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px
+}
+
+/* compact tweaks for short heights */
+@media (max-height:820px) {
+    #profile-panel {
+        top: calc(56px + 10px);
+        right: 18px;
+        width: 400px;
+        padding: 14px;
+        max-height: calc(100vh - 84px)
+    }
+
+    .profile-avatar {
+        width: 44px;
+        height: 44px
+    }
+
+    .xp-bar {
+        width: 160px
+    }
+
+    .stat {
+        min-height: 68px
+    }
+}
+
+/* if the screen is very short, allow inner scroll instead of clipping */
+@media (max-height:700px) {
+    #profile-panel {
+        overflow: auto;
+        scrollbar-width: none;
+    }
+
+    .view {
+        min-height: 360px;
+    }
+}
+
+
+
+@media (prefers-reduced-motion:reduce) {
+
+    #profile-panel,
+    #profile-overlay,
+    .stat:hover,
+    .profile-chip:hover {
+        transition: none !important;
+        transform: none !important
+    }
+}
+
+/* compact on short viewports */
+@media (max-height: 700px) {
+    #profile-panel {
+        top: 56px;
+        right: 16px;
+        bottom: 16px;
+        width: min(440px, 96vw);
+    }
+
+    .view {
+        gap: 16px;
+    }
+}

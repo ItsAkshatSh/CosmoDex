@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paths - CosmoDex</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>document.documentElement.classList.add('js','cdx-preload');</script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="stars-canvas"></canvas>
+
+    <div class="content">
+        <nav class="global-nav">
+            <div class="logo"><i class="fas fa-rocket"></i> CosmoDex</div>
+            <ul class="nav-links">
+                <li><a href="learn.html">Learn</a></li>
+                <li><a href="paths.html">Paths</a></li>
+                <li><a href="community.html">Community</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <div id="nav-actions" style="margin-left:auto;display:flex;gap:12px;align-items:center;">
+                <button id="quests-toggle" class="btn btn-secondary"><i class="fas fa-list-check"></i> Quests</button>
+                <a class="btn btn-primary" href="index.html">Home</a>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <h1>Learning Paths</h1>
+            <p>Explore our solar system and learn about the planets that call it home.</p>
+        </section>
+
+        <!-- Solar System Container -->
+        <section class="solar-system-container">
+            <div class="solar-system" id="solar-system">
+                <!-- Central Sun -->
+                <div class="sun">
+                    <div class="sun-core"></div>
+                    <div class="sun-glow"></div>
+                </div>
+                
+                <!-- Planets will be dynamically created by JavaScript -->
+            </div>
+
+            <!-- System Info Panel -->
+            <div class="system-info" id="system-info">
+                <div class="system-title">Beginner Solar System</div>
+                <div class="system-description">Explore our home solar system and learn about planets</div>
+                <div class="system-stats">
+                    <div class="stat">
+                        <span class="stat-number">9</span>
+                        <span class="stat-label">Planets to Explore</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">45</span>
+                        <span class="stat-label">Lessons Total</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="quests-panel" class="quests hidden" data-course-id="rocket_science_path">
+            <div class="quests-header">
+                <h3><i class="fas fa-list-check"></i> Path Quests</h3>
+                <button id="quests-close" class="btn btn-secondary" style="padding: 0.4rem 0.8rem;">Close</button>
+            </div>
+            <div class="quests-progress">
+                <div class="progress-bar"><span class="progress-fill" style="width:0%"></span></div>
+                <div class="progress-text">0% Complete</div>
+            </div>
+            <ul id="quests-list" class="quests-list"></ul>
+        </div>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>CosmoDex</h4>
+                    <p style="color: #8a8a8a;">Making space science accessible to everyone</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="main.js" defer></script>
+    <link rel="stylesheet" href="profile.css">
+    <script src="profile.js" defer></script>
+    <script src="js/pagefx.js" defer></script>
+    <script src="js/solar-carousel.js" defer></script>
+</body>
+</html>
+
