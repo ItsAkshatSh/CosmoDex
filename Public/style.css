@@ -1,0 +1,24 @@
+:root {
+    --cursor-all: url('Badges/cursor.cur'), url('Badges/Cursor.png') 24 6, auto;
+}
+
+
+html,
+body {
+    cursor: var(--cursor-all);
+}
+
+
+input[type="text"],
+input[type="search"],
+textarea {
+    cursor: text;
+}
+
+.draggable {
+    cursor: grab;
+}
+
+.draggable:active {
+    cursor: grabbing;
+}
