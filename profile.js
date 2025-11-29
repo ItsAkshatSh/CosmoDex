@@ -1,7 +1,7 @@
-// Cosmodex Profile Sidebar — Overview / Badges / Avatar
+// CyberBites Profile Sidebar — Overview / Badges / Avatar
 (function(){
-  const KEY="cosmodex_profile";
-  const ASSET="../Badges"; // images live in CosmoDex/Badges/
+  const KEY="cyberbites_profile";
+  const ASSET="../Badges"; // images live in CyberBites/Badges/
 
   const PFP_FILES = [
     "helmet_arctic_blue.png","helmet_neon_cyan.png","helmet_aqua.png","helmet_teal.png","helmet_mint.png",
@@ -230,7 +230,7 @@
   }
 
   // tiny public API
-  window.CosmodexProfile = {
+  window.CyberBitesProfile = {
     addXP(n){ state.xp+= (n|0); if(state.xp>=need(state.level)){ state.xp-=need(state.level); state.level++; } save(); renderOverview(); },
     completeQuest(){ state.totals.quests++; save(); renderOverview(); },
     unlockBadge(name){ const b=state.badges.find(x=>x.name===name); if(b){ b.unlocked=true; save(); renderOverview(); } },

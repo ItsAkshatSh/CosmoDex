@@ -616,8 +616,8 @@ document.addEventListener('mousemove', (e) => {
                     const quest = defaultQuests.find(q => q.id === id);
                     const xpReward = quest?.reward || 0;
                     
-                    if (window.CosmodexProfile && window.CosmodexProfile.addXP) {
-                        window.CosmodexProfile.addXP(xpReward);
+                    if (window.CyberBitesProfile && window.CyberBitesProfile.addXP) {
+                        window.CyberBitesProfile.addXP(xpReward);
                     }
                     
                     showToast(`Quest completed! +${xpReward} XP`);

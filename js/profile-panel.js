@@ -1,11 +1,11 @@
 (function () {
-  if (!window.CosmodexProfile) window.CosmodexProfile = {};
-  const api = window.CosmodexProfile;
+  if (!window.CyberBitesProfile) window.CyberBitesProfile = {};
+  const api = window.CyberBitesProfile;
 
   const existing = document.getElementById('profile-panel');
   if (existing) {
     api.toggle = () => existing.classList.toggle('open');
-    window.addEventListener('cosmodex:toggle-profile', api.toggle);
+    window.addEventListener('cyberbites:toggle-profile', api.toggle);
     return;
   }
 
@@ -21,7 +21,7 @@
   panel.setAttribute('aria-modal', 'true');
   panel.setAttribute('aria-label', 'Profile');
 
-  const stored = localStorage.getItem('cosmodex_avatar') || 'helmet_teal.png';
+  const stored = localStorage.getItem('cyberbites_avatar') || 'helmet_teal.png';
   const candidates = [
     `assets/avatars/${stored}`,
     `Badges/${stored}`,
@@ -75,5 +75,5 @@
   panel.querySelector('.cdx-close').addEventListener('click', close);
   window.addEventListener('keydown', (e)=>{ if(e.key==='Escape') close(); });
 
-  window.addEventListener('cosmodex:toggle-profile', api.toggle);
+  window.addEventListener('cyberbites:toggle-profile', api.toggle);
 })();

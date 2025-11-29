@@ -147,12 +147,12 @@
     
     function toggleSound() {
         isSoundEnabled = !isSoundEnabled;
-        localStorage.setItem('cosmodex_sound_enabled', isSoundEnabled);
+        localStorage.setItem('cyberbites_sound_enabled', isSoundEnabled);
         return isSoundEnabled;
     }
     
     function loadSoundPreference() {
-        const saved = localStorage.getItem('cosmodex_sound_enabled');
+        const saved = localStorage.getItem('cyberbites_sound_enabled');
         if (saved !== null) {
             isSoundEnabled = saved === 'true';
         }
@@ -161,7 +161,7 @@
     loadSoundPreference();
     addSoundEffects();
     
-    window.CosmoDexSounds = {
+    window.CyberBitesSounds = {
         ...sounds,
         toggle: toggleSound,
         isEnabled: () => isSoundEnabled

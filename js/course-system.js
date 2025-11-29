@@ -152,8 +152,158 @@
         ]
     };
 
+    const passwordSecurityCourse = {
+        title: "Password Security & Management",
+        learningSections: [
+            {
+                id: 1,
+                title: "Creating Strong Passwords",
+                content: [
+                    "Welcome to Password Security! Your passwords are the first line of defense for your online accounts. A strong password is essential for protecting your personal information.",
+                    "A strong password should be at least 12 characters long and include a mix of uppercase letters, lowercase letters, numbers, and special characters like !, @, or #.",
+                    "Avoid using personal information such as your name, birthday, or common words that can be easily guessed. Dictionary words are vulnerable to automated attacks.",
+                    "Instead of a single word, consider using a passphrase—a combination of random words that you can remember, like 'Coffee#Mountain$Sunset42'. This is both strong and memorable.",
+                    "Never reuse passwords across different accounts. If one account gets compromised, all your other accounts using the same password become vulnerable."
+                ],
+                checkupQuestion: {
+                    question: "What is the minimum recommended length for a strong password?",
+                    options: [
+                        "6 characters",
+                        "8 characters",
+                        "12 characters",
+                        "16 characters"
+                    ],
+                    correct: 2,
+                    explanation: "A strong password should be at least 12 characters long to provide adequate security against brute-force attacks."
+                }
+            },
+            {
+                id: 2,
+                title: "Password Managers & Best Practices",
+                content: [
+                    "Remembering unique, strong passwords for every account is nearly impossible. This is where password managers come in—they securely store all your passwords in one encrypted location.",
+                    "Password managers can generate random, strong passwords for you and automatically fill them in when you log in. You only need to remember one master password.",
+                    "Popular password managers include LastPass, 1Password, Bitwarden, and the built-in password managers in browsers like Chrome and Firefox.",
+                    "When using a password manager, make sure your master password is extremely strong and never share it with anyone. This single password protects all your others.",
+                    "Enable automatic backups and sync features so you never lose access to your passwords, even if you switch devices."
+                ],
+                checkupQuestion: {
+                    question: "What is the main advantage of using a password manager?",
+                    options: [
+                        "It makes passwords shorter",
+                        "It allows you to use the same password everywhere",
+                        "It securely stores unique strong passwords for each account",
+                        "It eliminates the need for passwords"
+                    ],
+                    correct: 2,
+                    explanation: "Password managers securely store unique, strong passwords for each account, so you don't have to remember them all while maintaining security."
+                }
+            },
+            {
+                id: 3,
+                title: "Two-Factor Authentication (2FA)",
+                content: [
+                    "Two-factor authentication adds an extra layer of security beyond just your password. Even if someone steals your password, they can't access your account without the second factor.",
+                    "The second factor is usually something you have (like your phone) or something you are (like your fingerprint). Common 2FA methods include SMS codes, authenticator apps, or biometric verification.",
+                    "Authenticator apps like Google Authenticator or Authy generate time-based codes that change every 30 seconds. These are more secure than SMS codes, which can be intercepted.",
+                    "Enable 2FA on all your important accounts, especially email, banking, and social media. Many services offer this as an optional security feature in their settings.",
+                    "Keep backup codes in a safe place. If you lose access to your 2FA device, these codes can help you regain access to your account."
+                ],
+                checkupQuestion: {
+                    question: "What does two-factor authentication (2FA) add to your account security?",
+                    options: [
+                        "A longer password",
+                        "An extra layer of security beyond your password",
+                        "Automatic password changes",
+                        "Free storage space"
+                    ],
+                    correct: 1,
+                    explanation: "2FA adds an extra layer of security by requiring a second form of verification (like a code from your phone) in addition to your password."
+                }
+            }
+        ],
+        finalTest: [
+            {
+                id: 1,
+                question: "What is the minimum recommended length for a strong password?",
+                options: [
+                    "6 characters",
+                    "8 characters",
+                    "12 characters",
+                    "16 characters"
+                ],
+                correct: 2,
+                explanation: "A strong password should be at least 12 characters long to provide adequate protection against attacks."
+            },
+            {
+                id: 2,
+                question: "Which of the following makes a password weak?",
+                options: [
+                    "Using a mix of letters and numbers",
+                    "Using your pet's name as your password",
+                    "Making it 15 characters long",
+                    "Including special characters"
+                ],
+                correct: 1,
+                explanation: "Using personal information like your pet's name makes passwords easy to guess and vulnerable to attacks."
+            },
+            {
+                id: 3,
+                question: "What is the main benefit of using a password manager?",
+                options: [
+                    "It makes all your passwords the same",
+                    "It allows you to securely store unique strong passwords for each account",
+                    "It eliminates the need for passwords",
+                    "It makes passwords shorter"
+                ],
+                correct: 1,
+                explanation: "Password managers securely store unique, strong passwords for each account, so you can maintain security without memorizing them all."
+            },
+            {
+                id: 4,
+                question: "What should you do if a website asks you to share your password?",
+                options: [
+                    "Share it if the website looks official",
+                    "Never share your password with anyone",
+                    "Share it only if they ask nicely",
+                    "Share it if it's a government website"
+                ],
+                correct: 1,
+                explanation: "Never share your password with anyone, including websites, services, or people claiming to be tech support. Legitimate services never ask for your password."
+            },
+            {
+                id: 5,
+                question: "What does two-factor authentication (2FA) require?",
+                options: [
+                    "Two different passwords",
+                    "A password plus a second form of verification",
+                    "Two email addresses",
+                    "Two phone numbers"
+                ],
+                correct: 1,
+                explanation: "2FA requires your password plus a second form of verification, such as a code from your phone or a biometric scan."
+            },
+            {
+                id: 6,
+                question: "Which 2FA method is generally considered more secure?",
+                options: [
+                    "SMS text messages",
+                    "Authenticator apps",
+                    "Email verification",
+                    "Security questions"
+                ],
+                correct: 1,
+                explanation: "Authenticator apps are more secure than SMS because they generate time-based codes that can't be intercepted like text messages."
+            }
+        ]
+    };
+
     
     const mercuryCourse = scamPhishingCourse;
+    const venusCourse = passwordSecurityCourse;
+    
+    const currentPage = window.location.pathname.split('/').pop() || '';
+    const activeCourse = currentPage.includes('venus') ? venusCourse : mercuryCourse;
     
     let currentSection = 0;
     let currentParagraph = 0;
@@ -230,8 +380,8 @@
     }
     
     function startCourse() {
-        if (window.CosmoDexSounds) {
-            window.CosmoDexSounds.click();
+        if (window.CyberBitesSounds) {
+            window.CyberBitesSounds.click();
         }
         
         currentSection = 0;
@@ -243,11 +393,11 @@
     }
     
     function previewLesson() {
-        if (window.CosmoDexSounds) {
-            window.CosmoDexSounds.click();
+        if (window.CyberBitesSounds) {
+            window.CyberBitesSounds.click();
         }
         
-        showQuestion(mercuryCourse.learningSections[0].checkupQuestion, true);
+        showQuestion(activeCourse.learningSections[0].checkupQuestion, true);
     }
     
     function showProgressBar() {
@@ -262,7 +412,7 @@
     function updateProgress() {
         const progressBar = document.querySelector('.progress-bar');
         if (progressBar) {
-            const totalSections = mercuryCourse.learningSections.length + 1; // +1 for final test
+            const totalSections = activeCourse.learningSections.length + 1; // +1 for final test
             const currentProgress = isInFinalTest ? 
                 (currentSection + 1) / totalSections : 
                 currentSection / totalSections;
@@ -272,12 +422,12 @@
     }
     
     function showLearningContent() {
-        if (currentSection >= mercuryCourse.learningSections.length) {
+        if (currentSection >= activeCourse.learningSections.length) {
             startFinalTest();
             return;
         }
         
-        const section = mercuryCourse.learningSections[currentSection];
+        const section = activeCourse.learningSections[currentSection];
         
         const contentContainer = document.createElement('div');
         contentContainer.className = 'mcq-container';
@@ -310,8 +460,8 @@
         
         const continueBtn = contentContainer.querySelector('.continue-btn');
         continueBtn.addEventListener('click', () => {
-            if (window.CosmoDexSounds) {
-                window.CosmoDexSounds.click();
+            if (window.CyberBitesSounds) {
+                window.CyberBitesSounds.click();
             }
             contentContainer.remove();
             showQuestion(section.checkupQuestion);
@@ -321,7 +471,7 @@
     function showQuestion(question, isPreview = false) {
         const isCheckup = !isInFinalTest && !isPreview;
         const questionNumber = isInFinalTest ? 
-            `Final Test - Question ${currentSection + 1} of ${mercuryCourse.finalTest.length}` :
+            `Final Test - Question ${currentSection + 1} of ${activeCourse.finalTest.length}` :
             `Check-up Question ${currentSection + 1}`;
         
         const mcqContainer = document.createElement('div');
@@ -332,7 +482,7 @@
                 <div class="question-header">
                     <div class="question-number">${questionNumber}</div>
                     <div class="question-text">${question.question}</div>
-                    <img src="${question.image || 'Badges/planet_mercury.png'}" alt="Mercury" class="question-image">
+                    ${question.image ? `<img src="${question.image}" alt="Question" class="question-image">` : ''}
                 </div>
                 
                 <div class="options-container">
@@ -367,8 +517,8 @@
             option.addEventListener('click', () => {
                 if (isAnswered) return;
                 
-                if (window.CosmoDexSounds) {
-                    window.CosmoDexSounds.click();
+                if (window.CyberBitesSounds) {
+                    window.CyberBitesSounds.click();
                 }
                 
                 options.forEach(opt => opt.classList.remove('selected'));
@@ -400,21 +550,21 @@
         options.forEach((option, index) => {
             if (index === question.correct) {
                 option.classList.add('correct');
-                if (window.CosmoDexSounds) {
-                    window.CosmoDexSounds.correct();
+                if (window.CyberBitesSounds) {
+                    window.CyberBitesSounds.correct();
                 }
             } else if (index === selectedOption && index !== question.correct) {
                 option.classList.add('incorrect');
-                if (window.CosmoDexSounds) {
-                    window.CosmoDexSounds.incorrect();
+                if (window.CyberBitesSounds) {
+                    window.CyberBitesSounds.incorrect();
                 }
             }
         });
         
         if (selectedOption === question.correct) {
             score++;
-            if (window.CosmodexProfile && window.CosmodexProfile.addXP) {
-                window.CosmodexProfile.addXP(10); 
+            if (window.CyberBitesProfile && window.CyberBitesProfile.addXP) {
+                window.CyberBitesProfile.addXP(10); 
                 showToast('+10 XP');
             }
         }
@@ -439,8 +589,8 @@
             <div style="margin-top: 1.5rem;">
                 <button class="btn btn-primary" style="background: rgba(255, 255, 255, 0.15); color: #ffffff; border: 2px solid rgba(255, 255, 255, 0.3); padding: 1rem 2rem; border-radius: 12px; font-weight: 600; cursor: pointer; backdrop-filter: blur(10px);">
                     ${isPreview ? 'Close Preview' : 
-                      (isCheckup ? (currentSection < mercuryCourse.learningSections.length - 1 ? 'Continue Learning' : 'Start Final Test') : 
-                       (currentSection < mercuryCourse.finalTest.length - 1 ? 'Next Question' : 'Finish Course'))}
+                      (isCheckup ? (currentSection < activeCourse.learningSections.length - 1 ? 'Continue Learning' : 'Start Final Test') : 
+                       (currentSection < activeCourse.finalTest.length - 1 ? 'Next Question' : 'Finish Course'))}
                 </button>
             </div>
         `;
@@ -449,8 +599,8 @@
         
         const nextBtn = explanationDiv.querySelector('button');
         nextBtn.addEventListener('click', () => {
-            if (window.CosmoDexSounds) {
-                window.CosmoDexSounds.click();
+            if (window.CyberBitesSounds) {
+                window.CyberBitesSounds.click();
             }
             
             if (isPreview) {
@@ -467,7 +617,7 @@
         currentSection++;
         closeMCQ(container);
         
-        if (currentSection < mercuryCourse.learningSections.length) {
+        if (currentSection < activeCourse.learningSections.length) {
             updateProgress();
             setTimeout(() => {
                 selectedOption = null;
@@ -484,25 +634,25 @@
         currentSection = 0;
         updateProgress();
         
-        const shuffledQuestions = [...mercuryCourse.finalTest].sort(() => Math.random() - 0.5);
-        mercuryCourse.finalTest = shuffledQuestions;
+        const shuffledQuestions = [...activeCourse.finalTest].sort(() => Math.random() - 0.5);
+        activeCourse.finalTest = shuffledQuestions;
         
         setTimeout(() => {
             selectedOption = null;
             isAnswered = false;
-            showQuestion(mercuryCourse.finalTest[currentSection]);
+            showQuestion(activeCourse.finalTest[currentSection]);
         }, 300);
     }
         function nextFinalTestQuestion(container) {
         currentSection++;
         closeMCQ(container);
         
-        if (currentSection < mercuryCourse.finalTest.length) {
+        if (currentSection < activeCourse.finalTest.length) {
             updateProgress();
             setTimeout(() => {
                 selectedOption = null;
                 isAnswered = false;
-                showQuestion(mercuryCourse.finalTest[currentSection]);
+                showQuestion(activeCourse.finalTest[currentSection]);
             }, 300);
         } else {
             showResults();
@@ -517,31 +667,31 @@
     }
     
     function showResults() {
-        const totalQuestions = mercuryCourse.finalTest.length;
+        const totalQuestions = activeCourse.finalTest.length;
         const percentage = Math.round((score / totalQuestions) * 100);
         const xpEarned = Math.round((score / totalQuestions) * 120);
         
-        if (window.CosmodexProfile && window.CosmodexProfile.addXP) {
-            window.CosmodexProfile.addXP(xpEarned);
+        if (window.CyberBitesProfile && window.CyberBitesProfile.addXP) {
+            window.CyberBitesProfile.addXP(xpEarned);
             showToast(`+${xpEarned} XP earned!`);
         }
         
         
-        if (window.CosmodexProfile && window.CosmodexProfile.completeQuest) {
-            window.CosmodexProfile.completeQuest();
+        if (window.CyberBitesProfile && window.CyberBitesProfile.completeQuest) {
+            window.CyberBitesProfile.completeQuest();
         }
         
         
-        if (window.CosmodexProfile && window.CosmodexProfile.setProgress) {
+        if (window.CyberBitesProfile && window.CyberBitesProfile.setProgress) {
            
-            const currentProgress = window.CosmodexProfile.getProgress ? 
-                window.CosmodexProfile.getProgress('beginner') : {done: 0, total: 5};
+            const currentProgress = window.CyberBitesProfile.getProgress ? 
+                window.CyberBitesProfile.getProgress('beginner') : {done: 0, total: 5};
             const newDone = Math.min(currentProgress.done + 1, currentProgress.total);
-            window.CosmodexProfile.setProgress('beginner', newDone, currentProgress.total);
+            window.CyberBitesProfile.setProgress('beginner', newDone, currentProgress.total);
         }
         
-        if (window.CosmoDexSounds) {
-            window.CosmoDexSounds.complete();
+        if (window.CyberBitesSounds) {
+            window.CyberBitesSounds.complete();
         }
         
         const progressContainer = document.querySelector('.progress-container');
@@ -605,15 +755,15 @@
         const retryBtn = resultsScreen.querySelector('.btn-secondary');
         
         backBtn.addEventListener('click', () => {
-            if (window.CosmoDexSounds) {
-                window.CosmoDexSounds.click();
+            if (window.CyberBitesSounds) {
+                window.CyberBitesSounds.click();
             }
             window.location.href = 'paths.html';
         });
         
         retryBtn.addEventListener('click', () => {
-            if (window.CosmoDexSounds) {
-                window.CosmoDexSounds.click();
+            if (window.CyberBitesSounds) {
+                window.CyberBitesSounds.click();
             }
             resultsScreen.remove();
             startCourse();

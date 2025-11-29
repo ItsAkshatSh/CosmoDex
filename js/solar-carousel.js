@@ -92,6 +92,7 @@ const planets = [
             const planetElement = document.createElement('div');
             planetElement.className = 'planet';
             planetElement.dataset.planet = planet.name.toLowerCase();
+            planetElement.setAttribute('data-planet-name', planet.name);
             planetElement.style.cssText = `
                 position: absolute;
                 width: ${planet.size}px;
@@ -99,7 +100,9 @@ const planets = [
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                z-index: 5;
+                z-index: ${5 + index};
+                pointer-events: auto !important;
+                cursor: pointer !important;
             `;
             
             const planetCore = document.createElement('div');
@@ -115,6 +118,8 @@ const planets = [
                 cursor: pointer;
                 transition: all 0.3s ease;
                 box-shadow: 0 0 8px ${planet.color}40;
+                pointer-events: auto;
+                position: relative;
             `;
             
             const planetLabel = document.createElement('div');
@@ -159,26 +164,59 @@ const planets = [
             solarSystem.appendChild(orbitPath);
             solarSystem.appendChild(planetElement);
             
-            planetElement.addEventListener('mouseenter', () => {
+            const handleMouseEnter = (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                console.log(`Mouse enter: ${planet.name}`);
+                planetElement.style.zIndex = '1000';
+                planetElement.style.pointerEvents = 'auto';
+                planetCore.style.pointerEvents = 'auto';
                 planetLabel.style.opacity = '1';
                 planetLabel.style.transform = 'translateX(-50%) translateY(-5px)';
                 planetCore.style.transform = 'scale(1.3)';
                 planetCore.style.boxShadow = `0 0 20px ${planet.color}80`;
                 orbitPath.style.borderColor = planet.color + '60';
-            });
+            };
             
-            planetElement.addEventListener('mouseleave', () => {
+            const handleMouseLeave = (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                console.log(`Mouse leave: ${planet.name}`);
+                planetElement.style.zIndex = `${5 + index}`;
                 planetLabel.style.opacity = '0';
                 planetLabel.style.transform = 'translateX(-50%) translateY(0px)';
                 planetCore.style.transform = 'scale(1)';
                 planetCore.style.boxShadow = `0 0 8px ${planet.color}40`;
                 orbitPath.style.borderColor = planet.color + '20';
-            });
+            };
             
-            planetElement.addEventListener('click', (e) => {
+            const handleClick = (e) => {
                 e.stopPropagation();
+                e.preventDefault();
+                console.log(`Click: ${planet.name}`);
                 showPlanetDialog(planet);
-            });
+            };
+            
+            planetElement.addEventListener('mouseenter', handleMouseEnter, true);
+            planetElement.addEventListener('mouseleave', handleMouseLeave, true);
+            planetElement.addEventListener('click', handleClick, true);
+            planetElement.addEventListener('mousemove', (e) => {
+                if (!planetElement.classList.contains('hovered')) {
+                    planetElement.classList.add('hovered');
+                    handleMouseEnter(e);
+                }
+            }, true);
+            
+            planetCore.addEventListener('mouseenter', handleMouseEnter, true);
+            planetCore.addEventListener('mouseleave', handleMouseLeave, true);
+            planetCore.addEventListener('click', handleClick, true);
+            
+            planetElement.addEventListener('mouseout', (e) => {
+                if (!planetElement.contains(e.relatedTarget)) {
+                    planetElement.classList.remove('hovered');
+                    handleMouseLeave(e);
+                }
+            }, true);
         });
     }
     
@@ -205,7 +243,18 @@ const planets = [
                 const finalX = baseX + parallaxX;
                 const finalY = baseY + parallaxY;
                 
-                planetElement.style.transform = `translate(calc(-50% + ${finalX}px), calc(-50% + ${finalY}px))`;
+                const currentTransform = planetElement.style.transform;
+                const newTransform = `translate(calc(-50% + ${finalX}px), calc(-50% + ${finalY}px))`;
+                
+                if (currentTransform !== newTransform) {
+                    planetElement.style.transform = newTransform;
+                }
+                
+                planetElement.style.pointerEvents = 'auto';
+                const planetCore = planetElement.querySelector('.planet-core');
+                if (planetCore) {
+                    planetCore.style.pointerEvents = 'auto';
+                }
             });
                 angle += 0.05; 
             animationId = requestAnimationFrame(updatePositions);
@@ -306,6 +355,8 @@ const planets = [
             
             if (planet.name === 'Mercury') {
                 window.location.href = 'mercury-course.html';
+            } else if (planet.name === 'Venus') {
+                window.location.href = 'venus-course.html';
             } else {
                 setTimeout(() => {
                     alert(`${planet.name} course coming soon! Start with Mercury to learn the basics.`);
@@ -554,6 +605,10 @@ const planets = [
     }
     
     function init() {
+        if (solarSystem) {
+            solarSystem.style.pointerEvents = 'auto';
+            solarSystem.style.position = 'relative';
+        }
         updateSystemInfo();
         createPlanets();
         animatePlanets();
