@@ -1,6 +1,5 @@
-// Public/js/header.js
+
 (function () {
-  // Treat solar/lesson pages as "Learn" for active highlighting
   const path = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
   const ROOT = /^(solar\.html|lesson\.html)$/.test(path) ? 'learn.html' : path;
 
@@ -37,13 +36,12 @@
     </div>
   `;
 
-  // Set astronaut helmet (from memory or default)
   const chipImg = document.getElementById('profile-chip-img');
-  // Accept stored name like "helmet_teal.png" (your badges folder)
+  
   const stored = localStorage.getItem('cosmodex_avatar') || 'helmet_teal.png';
   const candidates = [
-    `assets/avatars/${stored}`,   // if you later move helmets here
-    `Badges/${stored}`,           // your current pixel helmets
+    `assets/avatars/${stored}`,   
+    `Badges/${stored}`,           
     `assets/planets/planet_earth.png`
   ];
   (function setAvatar(i=0){
@@ -54,12 +52,11 @@
     test.src = candidates[i];
   })();
 
-  // Hook to your existing profile panel if available
   const chip = document.getElementById('profile-chip');
   chip.addEventListener('click', () => {
     if (window.CosmodexProfile?.toggle) { window.CosmodexProfile.toggle(); return; }
     if (window.toggleProfilePanel)      { window.toggleProfilePanel(); return; }
-    window.dispatchEvent(new CustomEvent('cosmodex:toggle-profile')); // bridge will handle
+    window.dispatchEvent(new CustomEvent('cosmodex:toggle-profile')); 
     chip.classList.add('pulse'); setTimeout(()=>chip.classList.remove('pulse'), 400);
   });
 })();

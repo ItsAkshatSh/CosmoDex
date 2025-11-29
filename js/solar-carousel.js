@@ -1,11 +1,10 @@
-// Solar System Carousel - Realistic Planet Orbits (Improved)
 (function() {
     const solarSystem = document.getElementById('solar-system');
     const systemInfo = document.getElementById('system-info');
     
     if (!solarSystem) return;
     
-    let currentSystem = 0; // 0: Beginner, 1: Intermediate, 2: Advanced
+    let currentSystem = 0; 
     let isRotating = false;
     let rotationTimeout;
     let animationId;
@@ -34,7 +33,6 @@
         }
     ];
     
-// Planet data for the solar system - much bigger and more spaced out with colors and emojis
 const planets = [
     { name: 'Mercury', image: 'planet_mercury.png', distance: 140, size: 32, speed: 0.02, color: '#8c7853', emoji: '☿️', description: 'The smallest planet, closest to the Sun' },
     { name: 'Venus', image: 'planet_venus.png', distance: 200, size: 38, speed: 0.015, color: '#ffc649', emoji: '♀️', description: 'The hottest planet with thick clouds' },
@@ -47,7 +45,6 @@ const planets = [
     { name: 'Pluto', image: 'planet_pluto.png', distance: 820, size: 28, speed: 0.0008, color: '#c9b037', emoji: '♇', description: 'A dwarf planet in the Kuiper Belt' }
 ];
     
-    // Update system info panel
     function updateSystemInfo() {
         const system = systems[currentSystem];
         if (!systemInfo) return;
@@ -73,7 +70,6 @@ const planets = [
         if (statNumbers[0]) statNumbers[0].textContent = system.stats.paths;
         if (statNumbers[1]) statNumbers[1].textContent = system.stats.lessons;
         
-        // Add lock indicator for locked systems
         if (!system.unlocked) {
             systemInfo.classList.add('locked');
         } else {
@@ -81,16 +77,13 @@ const planets = [
         }
     }
     
-    // Create planet elements
     function createPlanets() {
         const sun = solarSystem.querySelector('.sun');
         if (!sun) return;
         
-        // Clear existing planets
         const existingPlanets = solarSystem.querySelectorAll('.planet, .orbit-path');
         existingPlanets.forEach(el => el.remove());
         
-        // Only create planets for unlocked systems
         if (!systems[currentSystem].unlocked) {
             return;
         }
@@ -146,7 +139,6 @@ const planets = [
                 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
             `;
             
-            // Add orbital path indicator
             const orbitPath = document.createElement('div');
             orbitPath.className = 'orbit-path';
             orbitPath.style.cssText = `
@@ -167,7 +159,6 @@ const planets = [
             solarSystem.appendChild(orbitPath);
             solarSystem.appendChild(planetElement);
             
-            // Add hover effects
             planetElement.addEventListener('mouseenter', () => {
                 planetLabel.style.opacity = '1';
                 planetLabel.style.transform = 'translateX(-50%) translateY(-5px)';
@@ -184,7 +175,6 @@ const planets = [
                 orbitPath.style.borderColor = planet.color + '20';
             });
             
-            // Add click handler
             planetElement.addEventListener('click', (e) => {
                 e.stopPropagation();
                 showPlanetDialog(planet);
@@ -192,13 +182,11 @@ const planets = [
         });
     }
     
-    // Mouse tracking for parallax effect
     let mouseX = 0;
     let mouseY = 0;
     let targetMouseX = 0;
     let targetMouseY = 0;
     
-    // Animate planets in orbit with mouse parallax effect
     function animatePlanets() {
         const planetElements = solarSystem.querySelectorAll('.planet');
         let angle = 0;
@@ -207,12 +195,10 @@ const planets = [
             planetElements.forEach((planetElement, index) => {
                 const planet = planets[index];
                 
-                // Base orbital position
                 const baseX = Math.cos(angle * planet.speed) * planet.distance;
                 const baseY = Math.sin(angle * planet.speed) * planet.distance;
                 
-                // Mouse parallax effect (stronger for inner planets)
-                const parallaxStrength = (1 - (index / planets.length)) * 0.3; // Inner planets move more
+                const parallaxStrength = (1 - (index / planets.length)) * 0.3;
                 const parallaxX = targetMouseX * parallaxStrength;
                 const parallaxY = targetMouseY * parallaxStrength;
                 
@@ -221,14 +207,13 @@ const planets = [
                 
                 planetElement.style.transform = `translate(calc(-50% + ${finalX}px), calc(-50% + ${finalY}px))`;
             });
-                angle += 0.05; // Even slower rotation for easier clicking
+                angle += 0.05; 
             animationId = requestAnimationFrame(updatePositions);
         }
         
         updatePositions();
     }
     
-    // Smooth mouse tracking
     function updateMousePosition() {
         targetMouseX += (mouseX - targetMouseX) * 0.1;
         targetMouseY += (mouseY - targetMouseY) * 0.1;
@@ -237,21 +222,12 @@ const planets = [
     
     updateMousePosition();
     
-    // Don't pause animation - let planets keep moving for better experience
-    function setupPauseOnHover() {
-        // Removed pause functionality to keep planets moving smoothly
-        // This allows mouse parallax to work continuously
-    }
-    
-    // Show planet dialog with color coding and emojis
     function showPlanetDialog(planet) {
-        // Remove existing dialog if any
         const existingDialog = document.querySelector('.planet-dialog');
         if (existingDialog) {
             existingDialog.remove();
         }
         
-        // Create dialog overlay
         const overlay = document.createElement('div');
         overlay.className = 'planet-dialog-overlay';
         overlay.style.cssText = `
@@ -268,7 +244,6 @@ const planets = [
             backdrop-filter: blur(5px);
         `;
         
-        // Create dialog box
         const dialog = document.createElement('div');
         dialog.className = 'planet-dialog';
         dialog.style.cssText = `
@@ -314,12 +289,10 @@ const planets = [
         overlay.appendChild(dialog);
         document.body.appendChild(overlay);
         
-        // Animate in
         setTimeout(() => {
             dialog.style.transform = 'scale(1)';
         }, 10);
         
-        // Add event listeners
         overlay.addEventListener('click', (e) => {
             if (e.target === overlay) {
                 closeDialog();
@@ -331,11 +304,9 @@ const planets = [
             console.log(`Starting ${planet.name} learning path!`);
             closeDialog();
             
-            // Navigate to course page based on planet
             if (planet.name === 'Mercury') {
                 window.location.href = 'mercury-course.html';
             } else {
-                // For other planets, show coming soon message
                 setTimeout(() => {
                     alert(`${planet.name} course coming soon! Start with Mercury to learn the basics.`);
                 }, 300);
@@ -351,11 +322,9 @@ const planets = [
         }
     }
 
-    // Navigate to specific planet
     function navigateToPlanet(planetName) {
         console.log(`Navigating to ${planetName} learning path!`);
         
-        // Create a beautiful modal for planet selection
         const modal = document.createElement('div');
         modal.className = 'planet-modal';
         modal.innerHTML = `
@@ -374,7 +343,6 @@ const planets = [
             </div>
         `;
         
-        // Add modal styles
         const style = document.createElement('style');
         style.textContent = `
             .planet-modal {
@@ -471,7 +439,6 @@ const planets = [
         
         document.body.appendChild(modal);
         
-        // Close modal handlers
         const closeModal = () => {
             modal.remove();
             style.remove();
@@ -489,39 +456,31 @@ const planets = [
         });
     }
     
-    // Rotate to specific system
     function rotateToSystem(systemIndex) {
         if (isRotating || systemIndex === currentSystem) return;
         
         isRotating = true;
         currentSystem = systemIndex;
         
-        // Add rotation class for smooth transition
         solarSystem.classList.add('rotating');
         
-        // Update system info and recreate planets
         updateSystemInfo();
         
-        // Clear existing planets first
         const existingPlanets = solarSystem.querySelectorAll('.planet, .orbit-path');
         existingPlanets.forEach(el => el.remove());
         
-        // Recreate planets for the new system
         createPlanets();
         
-        // Restart animation if planets were created
         if (systems[currentSystem].unlocked) {
             animatePlanets();
         }
         
-        // Remove rotation class after animation
         setTimeout(() => {
             solarSystem.classList.remove('rotating');
             isRotating = false;
         }, 800);
     }
     
-    // Click navigation zones
     function setupClickNavigation() {
         const container = solarSystem.parentElement;
         const leftZone = document.createElement('div');
@@ -533,21 +492,18 @@ const planets = [
         container.appendChild(leftZone);
         container.appendChild(rightZone);
         
-        // Left click - go to previous system
         leftZone.addEventListener('click', () => {
             if (isRotating) return;
             const prevSystem = currentSystem > 0 ? currentSystem - 1 : systems.length - 1;
             rotateToSystem(prevSystem);
         });
         
-        // Right click - go to next system
         rightZone.addEventListener('click', () => {
             if (isRotating) return;
             const nextSystem = currentSystem < systems.length - 1 ? currentSystem + 1 : 0;
             rotateToSystem(nextSystem);
         });
         
-        // Add enhanced hover effects for navigation zones
         [leftZone, rightZone].forEach(zone => {
             zone.addEventListener('mouseenter', () => {
                 zone.style.opacity = '1';
@@ -560,7 +516,6 @@ const planets = [
         });
     }
     
-    // Keyboard navigation
     function setupKeyboardNavigation() {
         document.addEventListener('keydown', (e) => {
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
@@ -580,7 +535,6 @@ const planets = [
         });
     }
     
-    // Mouse movement tracking
     function setupMouseTracking() {
         const container = solarSystem.parentElement;
         
@@ -589,19 +543,16 @@ const planets = [
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
             
-            // Normalize mouse position relative to center (-1 to 1)
             mouseX = (e.clientX - rect.left - centerX) / centerX;
             mouseY = (e.clientY - rect.top - centerY) / centerY;
         });
         
         container.addEventListener('mouseleave', () => {
-            // Reset to center when mouse leaves
             mouseX = 0;
             mouseY = 0;
         });
     }
     
-    // Initialize the carousel
     function init() {
         updateSystemInfo();
         createPlanets();
@@ -611,7 +562,6 @@ const planets = [
         setupKeyboardNavigation();
         setupMouseTracking();
         
-        // Add CSS for navigation zones with cool animations
         const style = document.createElement('style');
         style.textContent = `
             .nav-zone {
@@ -665,6 +615,5 @@ const planets = [
         document.head.appendChild(style);
     }
     
-    // Start the carousel
     init();
 })();

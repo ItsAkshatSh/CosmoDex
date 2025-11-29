@@ -1,10 +1,7 @@
-// Universal profile panel: inject if missing, and provide CosmodexProfile.toggle()
 (function () {
-  // expose single API
   if (!window.CosmodexProfile) window.CosmodexProfile = {};
   const api = window.CosmodexProfile;
 
-  // already present? just wire toggle and return
   const existing = document.getElementById('profile-panel');
   if (existing) {
     api.toggle = () => existing.classList.toggle('open');
@@ -12,7 +9,6 @@
     return;
   }
 
-  // ---- inject minimal panel + overlay ----
   const overlay = document.createElement('div');
   overlay.id = 'profile-overlay';
   overlay.className = 'cdx-prof-overlay';
@@ -25,7 +21,6 @@
   panel.setAttribute('aria-modal', 'true');
   panel.setAttribute('aria-label', 'Profile');
 
-  // avatar from localStorage or fallback helmet
   const stored = localStorage.getItem('cosmodex_avatar') || 'helmet_teal.png';
   const candidates = [
     `assets/avatars/${stored}`,
@@ -66,7 +61,6 @@
   document.body.appendChild(overlay);
   document.body.appendChild(panel);
 
-  // ---- open/close API with snappy, bouncy motion ----
   function open() {
     overlay.classList.add('on');
     panel.classList.add('open');
@@ -77,11 +71,9 @@
   }
   api.toggle = () => panel.classList.contains('open') ? close() : open();
 
-  // events
   overlay.addEventListener('click', close);
   panel.querySelector('.cdx-close').addEventListener('click', close);
   window.addEventListener('keydown', (e)=>{ if(e.key==='Escape') close(); });
 
-  // listen for header chip
   window.addEventListener('cosmodex:toggle-profile', api.toggle);
 })();

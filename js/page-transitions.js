@@ -1,8 +1,6 @@
-// Smooth cross-fade + subtle scale using a dedicated scrim (no layout jank)
 (function () {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  // create scrim once
   let scrim = document.querySelector('.cdx-scrim');
   if (!scrim) {
     scrim = document.createElement('div');
@@ -10,17 +8,14 @@
     document.body.appendChild(scrim);
   }
 
-  // find main content to give a tiny spring-in
   const target = document.querySelector('.container') || document.querySelector('main') || document.body;
 
-  // enter (after first paint)
   requestAnimationFrame(() => {
     scrim.classList.remove('on');
     target.classList.add('cdx-enter');
     requestAnimationFrame(() => target.classList.add('ready'));
   });
 
-  // intercept same-origin a[href] to play exit first
   document.addEventListener('click', (e) => {
     const a = e.target.closest('a');
     if (!a) return;
@@ -32,8 +27,8 @@
     if (!sameOrigin || isHash || newTab) return;
 
     e.preventDefault();
-    target.classList.remove('ready');  // start scale-out
-    scrim.classList.add('on');         // fade to dark
+    target.classList.remove('ready');  
+    scrim.classList.add('on');  
     setTimeout(() => location.href = url.href, 210);
   });
 })();
