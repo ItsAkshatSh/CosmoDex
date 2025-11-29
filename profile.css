@@ -61,7 +61,7 @@
     /* sit above viewport bottom */
     width: min(460px, 96vw);
     height: auto;
-    max-height: none;
+    max-height: calc(100vh - 96px);
 
     background: var(--panel-bg);
     border: 1px solid var(--soft);
@@ -79,6 +79,28 @@
     pointer-events: none;
     transition: transform .24s ease, opacity .24s ease;
     z-index: 100;
+
+    /* enable inner scrolling when content overflows */
+    overflow: auto;
+    -ms-overflow-style: none; /* IE/Edge */
+    scrollbar-width: thin;
+}
+
+/* Hide scrollbars but keep scrolling functionality */
+#profile-panel, .badge-grid-all, .pfp-grid {
+    /* Firefox */
+    scrollbar-width: none;
+    /* IE 10+ */
+    -ms-overflow-style: none;
+}
+
+/* WebKit-based browsers */
+#profile-panel::-webkit-scrollbar,
+.badge-grid-all::-webkit-scrollbar,
+.pfp-grid::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+    background: transparent;
 }
 
 #profile-panel.open {
@@ -357,7 +379,22 @@
 @media (max-height:700px) {
     #profile-panel {
         overflow: auto;
-        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    /* hide native scrollbars for WebKit browsers while retaining scroll */
+    #profile-panel::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    #profile-panel::-webkit-scrollbar-thumb {
+        background: rgba(255,255,255,0.06);
+        border-radius: 8px;
+    }
+
+    #profile-panel::-webkit-scrollbar-track {
+        background: transparent;
     }
 
     .view {

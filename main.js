@@ -336,7 +336,6 @@ if (isIndexPage) {
 
 scene.add(nebula);
 
-// Create meteors
 const meteors = [];
 const meteorCount = 3;
 
@@ -376,7 +375,6 @@ for (let i = 0; i < meteorCount; i++) {
     meteors.push(meteor);
 }
 
-// Create flying rockets
 const flyingRockets = [];
 const rocketCount = 2;
 
@@ -480,12 +478,10 @@ function animate() {
         thrustParticles.geometry.attributes.position.needsUpdate = true;
     }
     
-    // Animate meteors
     meteors.forEach(meteor => {
         meteor.position.add(meteor.userData.direction.clone().multiplyScalar(meteor.userData.speed));
         meteor.rotation.z += 0.01;
         
-        // Reset meteor if it goes off screen
         if (meteor.position.z > 50 || Math.abs(meteor.position.x) > 60 || Math.abs(meteor.position.y) > 60) {
             meteor.position.set(
                 (Math.random() - 0.5) * 100,
@@ -500,12 +496,10 @@ function animate() {
         }
     });
     
-    // Animate flying rockets
     flyingRockets.forEach(rocket => {
         rocket.position.add(rocket.userData.direction.clone().multiplyScalar(rocket.userData.speed));
         rocket.rotation.z += rocket.userData.rotationSpeed;
         
-        // Reset rocket if it goes off screen
         if (rocket.position.z > 50 || Math.abs(rocket.position.x) > 60 || Math.abs(rocket.position.y) > 60) {
             rocket.position.set(
                 (Math.random() - 0.5) * 80,
@@ -622,7 +616,6 @@ document.addEventListener('mousemove', (e) => {
                     const quest = defaultQuests.find(q => q.id === id);
                     const xpReward = quest?.reward || 0;
                     
-                    // Award XP to the unified profile system
                     if (window.CosmodexProfile && window.CosmodexProfile.addXP) {
                         window.CosmodexProfile.addXP(xpReward);
                     }

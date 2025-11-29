@@ -1,8 +1,4 @@
-/* ===================== COURSE SYSTEM STYLES ===================== */
 
-/* Enhanced Starfield Background - Removed conflicting body styles */
-
-/* Animated Starfield */
 .starfield {
     position: fixed;
     top: 0;
@@ -33,7 +29,6 @@
     50% { opacity: 1; transform: scale(1.2); }
 }
 
-/* Floating Particles */
 .particle {
     position: fixed;
     width: 2px;
@@ -51,7 +46,6 @@
     100% { transform: translateY(-100px) translateX(100px); opacity: 0; }
 }
 
-/* Course Intro Page */
 .course-intro {
     padding: 4rem 2rem;
     max-width: 800px;
